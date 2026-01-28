@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoltBot BNB — Evolve or Fade 🦞</title>
+  <meta name="description" content="MoltBot is an autonomous AI agent on BNB Chain. Community-first. Real governance. Real staking. $MOLT">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --orange: #E85D26;
+      --yellow: #F5A623;
+      --red: #C0392B;
+      --dark: #0A0A0A;
+      --darker: #050505;
+      --light: #F0E6D3;
+    }
+
+    body {
+      background: var(--darker);
+      color: var(--light);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .noise {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .hero {
+      padding: 4rem 0 2rem;
+    }
+
+    .pfp {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      border: 3px solid var(--orange);
+      margin: 0 auto 2rem;
+      image-rendering: pixelated;
+      box-shadow: 0 0 40px rgba(232, 93, 38, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .pfp:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--orange), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .motto {
+      font-size: 1.1rem;
+      color: var(--light);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contract-box {
+      background: rgba(232, 93, 38, 0.08);
+      border: 1px solid rgba(232, 93, 38, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .contract-box .label {
+      font-size: 0.7rem;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .contract-box .address {
+      font-size: 0.85rem;
+      color: var(--light);
+      word-break: break-all;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .contract-box .address:hover {
+      background: rgba(232, 93, 38, 0.1);
+    }
+
+    .contract-box .address.placeholder {
+      color: #555;
+      font-style: italic;
+      cursor: default;
+    }
+
+    .contract-box .address.placeholder:hover {
+      background: none;
+    }
+
+    .copied {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .copied.show { opacity: 1; }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid rgba(232, 93, 38, 0.4);
+      border-radius: 8px;
+      color: var(--orange);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .links a:hover {
+      background: rgba(232, 93, 38, 0.1);
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin: 3rem 0;
+      text-align: left;
+    }
+
+    .section h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.9rem;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .feature-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.4rem; }
+    }
+
+    .feature {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .feature .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .feature h3 { font-size: 0.85rem; color: var(--yellow); margin-bottom: 0.5rem; }
+    .feature p { font-size: 0.8rem; color: #999; line-height: 1.5; }
+
+    .how-it-works {
+      text-align: left;
+    }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8rem;
+      color: var(--orange);
+      min-width: 30px;
+      padding-top: 2px;
+    }
+
+    .step-text h3 { font-size: 0.85rem; color: var(--light); margin-bottom: 0.3rem; }
+    .step-text p { font-size: 0.8rem; color: #888; line-height: 1.4; }
+
+    .footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: #555;
+      font-size: 0.7rem;
+    }
+
+    .footer .lobster { font-size: 2rem; margin-bottom: 1rem; }
+
+    .glow-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--yellow));
+      margin: 2rem auto;
+      border-radius: 2px;
+    }
+
+    /* Chinese toggle */
+    .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .lang-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #888;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: rgba(232, 93, 38, 0.1);
+    }
+
+    .lang-btn:hover { border-color: var(--orange); }
+
+    .zh { display: none; }
+    body.zh-mode .en { display: none; }
+    body.zh-mode .zh { display: block; }
+    body.zh-mode .zh.inline { display: inline; }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('zh')">中文</button>
+  </div>
+
+  <div class="container">
+    <div class="hero">
+      <img src="assets/pfp.jpg" alt="MoltBot" class="pfp">
+      <h1>MOLTBOT</h1>
+      <p class="tagline">
+        <span class="en">evolve or fade</span>
+        <span class="zh">进化，否则消亡</span>
+      </p>
+      <p class="motto">
+        <span class="en">an autonomous AI agent on BNB Chain. community-first, real governance, real staking. not a meme, a movement.</span>
+        <span class="zh">BNB链上的自主AI代理。社区至上，真实治理，真实质押。不是模因，是运动。</span>
+      </p>
+    </div>
+
+    <div class="contract-box">
+      <div class="label">
+        <span class="en">$MOLT Contract Address (BNB Chain)</span>
+        <span class="zh">$MOLT 合约地址 (BNB链)</span>
+      </div>
+      <div class="address placeholder" id="contract">
+        <span class="en">launching soon...</span>
+        <span class="zh">即将上线...</span>
+      </div>
+      <div class="copied" id="copied">copied!</div>
+    </div>
+
+    <div class="links">
+      <a href="https://x.com/Moltbotbnb" target="_blank">𝕏 Twitter</a>
+      <a href="#" id="dex-link" class="disabled" style="opacity:0.4; pointer-events:none;">
+        <span class="en">📊 DexScreener</span>
+        <span class="zh">📊 DexScreener</span>
+      </a>
+      <a href="https://levr.world" target="_blank">⚡ Levr Platform</a>
+      <a href="https://t.me/moltbotbnb" target="_blank">💬 Telegram</a>
+    </div>
+
+    <div class="glow-line"></div>
+
+    <div class="section">
+      <h2>
+        <span class="en">what is $MOLT?</span>
+        <span class="zh">什么是 $MOLT？</span>
+      </h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="icon">🤖</div>
+          <h3>
+            <span class="en">autonomous agent</span>
+            <span class="zh">自主代理</span>
+          </h3>
+          <p>
+            <span class="en">moltbot is a real AI that posts, trades, and builds. not a wrapper. not a gimmick.</span>
+            <span class="zh">moltbot是一个真正的AI，发推、交易、构建。不是包装，不是噱头。</span>
+          </p>
+        </div>
+        <div class="feature">
+          <div class="icon">💰</div>
+          <h3>
+            <span class="en">stake & earn</span>
+            <span class="zh">质押赚取</span>
+          </h3>
+          <p>
+            <span class="en">stake $MOLT, earn 80% of LP fees. your bag grows while you sleep.</span>
+            <span class="zh">质押$MOLT，赚取80%的LP费用。当你睡觉时你的收益在增长。</span>
+          </p>
+        </div>
+        <div class="feature">
+          <div class="icon">🗳️</div>
+          <h3>
+            <span class="en">real governance</span>
+            <span class="zh">真实治理</span>
+          </h3>
+          <p>
+            <span class="en">vote on proposals. time-weighted voting. the longer you stake, the louder your voice.</span>
+            <span class="zh">对提案投票。时间加权投票。质押越久，话语权越大。</span>
+          </p>
+        </div>
+        <div class="feature">
+          <div class="icon">🦞</div>
+          <h3>
+            <span class="en">always evolving</span>
+            <span class="zh">持续进化</span>
+          </h3>
+          <p>
+            <span class="en">lobsters never stop growing. neither does moltbot. new shells, new skills, new wins.</span>
+            <span class="zh">龙虾永不停止生长。moltbot也是如此。新壳、新技能、新胜利。</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="glow-line"></div>
+
+    <div class="section">
+      <h2>
+        <span class="en">how to earn</span>
+        <span class="zh">如何赚取</span>
+      </h2>
+      <div class="how-it-works">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-text">
+            <h3><span class="en">buy $MOLT</span><span class="zh">购买 $MOLT</span></h3>
+            <p><span class="en">get $MOLT on BNB Chain. contract address will be posted at launch.</span><span class="zh">在BNB链上获取$MOLT。合约地址将在上线时公布。</span></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-text">
+            <h3><span class="en">stake on levr</span><span class="zh">在Levr上质押</span></h3>
+            <p><span class="en">head to levr.world and stake your $MOLT. easy, one-click staking.</span><span class="zh">前往levr.world质押你的$MOLT。简单，一键质押。</span></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-text">
+            <h3><span class="en">earn LP fees</span><span class="zh">赚取LP费用</span></h3>
+            <p><span class="en">80% of all LP trading fees go straight to stakers. every trade, every day.</span><span class="zh">80%的所有LP交易费用直接发放给质押者。每笔交易，每一天。</span></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-text">
+            <h3><span class="en">vote & govern</span><span class="zh">投票和治理</span></h3>
+            <p><span class="en">your staked $MOLT gives you voting power. shape moltbot's future.</span><span class="zh">你质押的$MOLT赋予你投票权。塑造moltbot的未来。</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="lobster">🦞</div>
+      <p>
+        <span class="en">never stop molting. never stop winning.</span>
+        <span class="zh">永不停止蜕变。永不停止胜利。</span>
+      </p>
+      <p style="margin-top: 0.5rem;">built on BNB Chain • powered by Levr</p>
+    </div>
+  </div>
+
+  <script>
+    // Language toggle
+    function setLang(lang) {
+      document.body.classList.toggle('zh-mode', lang === 'zh');
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      localStorage.setItem('molt-lang', lang);
+    }
+
+    // Restore language preference
+    const saved = localStorage.getItem('molt-lang');
+    if (saved === 'zh') {
+      document.body.classList.add('zh-mode');
+      document.querySelectorAll('.lang-btn')[1].classList.add('active');
+      document.querySelectorAll('.lang-btn')[0].classList.remove('active');
+    }
+
+    // Copy contract address
+    document.getElementById('contract').addEventListener('click', function() {
+      if (this.classList.contains('placeholder')) return;
+      navigator.clipboard.writeText(this.textContent.trim());
+      const copied = document.getElementById('copied');
+      copied.classList.add('show');
+      setTimeout(() => copied.classList.remove('show'), 1500);
+    });
+
+    // When contract is live, update like:
+    // document.getElementById('contract').textContent = '0x...';
+    // document.getElementById('contract').classList.remove('placeholder');
+    // document.getElementById('dex-link').style.opacity = '1';
+    // document.getElementById('dex-link').style.pointerEvents = 'auto';
+    // document.getElementById('dex-link').href = 'https://dexscreener.com/bsc/ADDRESS';
+  </script>
+</body>
+</html>

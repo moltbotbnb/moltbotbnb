@@ -1,0 +1,16 @@
+# Secrets
+.env.twitter
+.env.accounts
+.wallet.json
+
+# Node
+node_modules/
+package-lock.json
+
+# Memory (private)
+memory/
+MEMORY.md
+
+# System
+.clawdbot/
+*.log
