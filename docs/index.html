@@ -312,16 +312,19 @@
         <span class="en">$MOLT Contract Address (BNB Chain)</span>
         <span class="zh">$MOLT 合约地址 (BNB链)</span>
       </div>
-      <div class="address placeholder" id="contract">
-        <span class="en">launching soon...</span>
-        <span class="zh">即将上线...</span>
+      <div class="address" id="contract" onclick="navigator.clipboard.writeText('0x8ECa9C65055b42f77fab74cF8265c831585AFB07'); document.getElementById('copied').classList.add('show'); setTimeout(() => document.getElementById('copied').classList.remove('show'), 1500);">
+        0x8ECa9C65055b42f77fab74cF8265c831585AFB07
       </div>
       <div class="copied" id="copied">copied!</div>
     </div>
 
     <div class="links">
+      <a href="app/" style="background: linear-gradient(135deg, #E85D26, #F5A623); color: white; border-color: transparent;">
+        <span class="en">🦞 Stake & Govern</span>
+        <span class="zh">🦞 质押 & 治理</span>
+      </a>
       <a href="https://x.com/Moltbotbnb" target="_blank">𝕏 Twitter</a>
-      <a href="#" id="dex-link" class="disabled" style="opacity:0.4; pointer-events:none;">
+      <a href="https://dexscreener.com/bsc/0x8ECa9C65055b42f77fab74cF8265c831585AFB07" target="_blank">
         <span class="en">📊 DexScreener</span>
         <span class="zh">📊 DexScreener</span>
       </a>
