@@ -7,6 +7,7 @@ import { useSetClankerToken, useProject, useUser } from 'levr-sdk/dist/esm/clien
 import { StakePanel } from './StakePanel'
 import { SwapPanel } from './SwapPanel'
 import { StatsPanel } from './StatsPanel'
+import { GovernancePanel } from './GovernancePanel'
 
 interface MoltAppProps {
   clankerToken: `0x${string}`
@@ -20,7 +21,7 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
   const { data: userData } = useUser()
   const user = userData ?? undefined
   
-  const [activeTab, setActiveTab] = useState<'stake' | 'swap'>('stake')
+  const [activeTab, setActiveTab] = useState<'stake' | 'swap' | 'govern'>('stake')
 
   return (
     <div className="molt-app">
@@ -45,13 +46,19 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
               className={activeTab === 'stake' ? 'active' : ''} 
               onClick={() => setActiveTab('stake')}
             >
-              Stake / Unstake
+              Stake
             </button>
             <button 
               className={activeTab === 'swap' ? 'active' : ''} 
               onClick={() => setActiveTab('swap')}
             >
               Swap
+            </button>
+            <button 
+              className={activeTab === 'govern' ? 'active' : ''} 
+              onClick={() => setActiveTab('govern')}
+            >
+              Govern
             </button>
           </div>
 
@@ -63,8 +70,10 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
               </div>
             ) : activeTab === 'stake' ? (
               <StakePanel project={project} user={user} />
-            ) : (
+            ) : activeTab === 'swap' ? (
               <SwapPanel project={project} user={user} />
+            ) : (
+              <GovernancePanel project={project} user={user} />
             )}
           </div>
         </>
