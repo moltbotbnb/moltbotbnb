@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --orange: #E85D26;
+  --yellow: #F5A623;
+  --red: #C0392B;
+  --dark: #0A0A0A;
+  --darker: #050505;
+  --light: #F0E6D3;
+}
+
+body {
+  background: var(--darker);
+  color: var(--light);
+  font-family: 'Space Mono', monospace;
+  min-height: 100vh;
+}
+
+/* RainbowKit button overrides */
+[data-rk] button {
+  font-family: 'Space Mono', monospace !important;
+}
