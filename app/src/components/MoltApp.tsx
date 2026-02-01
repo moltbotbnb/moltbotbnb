@@ -8,6 +8,7 @@ import { StakePanel } from './StakePanel'
 import { SwapPanel } from './SwapPanel'
 import { StatsPanel } from './StatsPanel'
 import { GovernancePanel } from './GovernancePanel'
+import { DashboardPanel } from './DashboardPanel'
 
 interface MoltAppProps {
   clankerToken: `0x${string}`
@@ -21,7 +22,7 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
   const { data: userData } = useUser()
   const user = userData ?? undefined
   
-  const [activeTab, setActiveTab] = useState<'stake' | 'swap' | 'govern'>('stake')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'stake' | 'swap' | 'govern'>('dashboard')
 
   return (
     <div className="molt-app">
@@ -42,6 +43,12 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
           <StatsPanel project={project} user={user} />
 
           <div className="tabs">
+            <button 
+              className={activeTab === 'dashboard' ? 'active' : ''} 
+              onClick={() => setActiveTab('dashboard')}
+            >
+              Dashboard
+            </button>
             <button 
               className={activeTab === 'stake' ? 'active' : ''} 
               onClick={() => setActiveTab('stake')}
@@ -68,6 +75,8 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
                 <p>Connect your wallet to stake, unstake, or swap $MOLT</p>
                 <ConnectButton />
               </div>
+            ) : activeTab === 'dashboard' ? (
+              <DashboardPanel project={project} user={user} />
             ) : activeTab === 'stake' ? (
               <StakePanel project={project} user={user} />
             ) : activeTab === 'swap' ? (
