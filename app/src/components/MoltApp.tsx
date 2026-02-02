@@ -1,28 +1,107 @@
-import { useState } from 'react'
-import { useAccount } from 'wagmi'
+import { useState, useEffect } from 'react'
+import { useAccount, useReadContract, useReadContracts, useBalance } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-// @ts-ignore
-import { useSetClankerToken, useProject, useUser } from 'levr-sdk/dist/esm/client/index.js'
+import { formatUnits } from 'viem'
 
-import { StakePanel } from './StakePanel'
-import { SwapPanel } from './SwapPanel'
-import { StatsPanel } from './StatsPanel'
-import { GovernancePanel } from './GovernancePanel'
-import { DashboardPanel } from './DashboardPanel'
+import { SimpleStakePanel } from './SimpleStakePanel'
+import { SimpleSwapPanel } from './SimpleSwapPanel'
 
-interface MoltAppProps {
-  clankerToken: `0x${string}`
-}
+// Contract addresses
+const MOLT_TOKEN = '0x8ECa9C65055b42f77fab74cF8265c831585AFB07'
+const STAKING_CONTRACT = '0x10cf2944b727841730b4d4680b74d7cb6967035e'
 
-export function MoltApp({ clankerToken }: MoltAppProps) {
-  useSetClankerToken(clankerToken)
-  
-  const { isConnected } = useAccount()
-  const { data: project, isLoading: projectLoading } = useProject()
-  const { data: userData } = useUser()
-  const user = userData ?? undefined
-  
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'stake' | 'swap' | 'govern'>('dashboard')
+// Minimal ABIs
+const ERC20_ABI = [
+  {
+    name: 'balanceOf',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'account', type: 'address' }],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+  {
+    name: 'decimals',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint8' }],
+  },
+  {
+    name: 'totalSupply',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+] as const
+
+const STAKING_ABI = [
+  {
+    name: 'stakedBalance',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [{ name: 'account', type: 'address' }],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+  {
+    name: 'totalStaked',
+    type: 'function',
+    stateMutability: 'view',
+    inputs: [],
+    outputs: [{ name: '', type: 'uint256' }],
+  },
+] as const
+
+export function MoltApp() {
+  const { address, isConnected } = useAccount()
+  const [activeTab, setActiveTab] = useState<'stake' | 'swap'>('stake')
+
+  // Read token balance
+  const { data: tokenBalance } = useReadContract({
+    address: MOLT_TOKEN,
+    abi: ERC20_ABI,
+    functionName: 'balanceOf',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  })
+
+  // Read staked balance
+  const { data: stakedBalance } = useReadContract({
+    address: STAKING_CONTRACT,
+    abi: STAKING_ABI,
+    functionName: 'stakedBalance',
+    args: address ? [address] : undefined,
+    query: { enabled: !!address },
+  })
+
+  // Read total staked
+  const { data: totalStaked } = useReadContract({
+    address: STAKING_CONTRACT,
+    abi: STAKING_ABI,
+    functionName: 'totalStaked',
+  })
+
+  // Read total supply
+  const { data: totalSupply } = useReadContract({
+    address: MOLT_TOKEN,
+    abi: ERC20_ABI,
+    functionName: 'totalSupply',
+  })
+
+  const decimals = 18
+
+  const formatBalance = (value: bigint | undefined) => {
+    if (!value) return '0'
+    const formatted = formatUnits(value, decimals)
+    const num = parseFloat(formatted)
+    if (num > 1_000_000) return (num / 1_000_000).toFixed(2) + 'M'
+    if (num > 1_000) return (num / 1_000).toFixed(2) + 'K'
+    return num.toFixed(2)
+  }
+
+  const stakedPercent = totalSupply && totalStaked 
+    ? ((Number(totalStaked) / Number(totalSupply)) * 100).toFixed(1)
+    : '0'
 
   return (
     <div className="molt-app">
@@ -34,136 +113,75 @@ export function MoltApp({ clankerToken }: MoltAppProps) {
         <ConnectButton />
       </header>
 
-      {projectLoading ? (
-        <div className="loading">Loading...</div>
-      ) : !project ? (
-        <div className="error">Failed to load project data</div>
-      ) : (
-        <>
-          <StatsPanel project={project} user={user} />
+      {/* Stats */}
+      <div className="stats-bar">
+        <div className="stat">
+          <span className="label">Total Staked</span>
+          <span className="value">{formatBalance(totalStaked)} $MOLT</span>
+        </div>
+        <div className="stat">
+          <span className="label">Staked %</span>
+          <span className="value">{stakedPercent}%</span>
+        </div>
+        {isConnected && (
+          <>
+            <div className="stat">
+              <span className="label">Your Balance</span>
+              <span className="value">{formatBalance(tokenBalance)} $MOLT</span>
+            </div>
+            <div className="stat">
+              <span className="label">Your Staked</span>
+              <span className="value">{formatBalance(stakedBalance)} $MOLT</span>
+            </div>
+          </>
+        )}
+      </div>
 
-          <div className="tabs">
-            <button 
-              className={activeTab === 'dashboard' ? 'active' : ''} 
-              onClick={() => setActiveTab('dashboard')}
-            >
-              Dashboard
-            </button>
-            <button 
-              className={activeTab === 'stake' ? 'active' : ''} 
-              onClick={() => setActiveTab('stake')}
-            >
-              Stake
-            </button>
-            <button 
-              className={activeTab === 'swap' ? 'active' : ''} 
-              onClick={() => setActiveTab('swap')}
-            >
-              Swap
-            </button>
-            <button 
-              className={activeTab === 'govern' ? 'active' : ''} 
-              onClick={() => setActiveTab('govern')}
-            >
-              Govern
-            </button>
+      {/* Tabs */}
+      <div className="tabs">
+        <button 
+          className={activeTab === 'stake' ? 'active' : ''} 
+          onClick={() => setActiveTab('stake')}
+        >
+          Stake
+        </button>
+        <button 
+          className={activeTab === 'swap' ? 'active' : ''} 
+          onClick={() => setActiveTab('swap')}
+        >
+          Swap
+        </button>
+      </div>
+
+      {/* Panel */}
+      <div className="panel-container">
+        {!isConnected ? (
+          <div className="connect-prompt">
+            <p>Connect your wallet to stake or swap $MOLT</p>
+            <ConnectButton />
           </div>
+        ) : activeTab === 'stake' ? (
+          <SimpleStakePanel 
+            tokenBalance={tokenBalance ?? 0n}
+            stakedBalance={stakedBalance ?? 0n}
+          />
+        ) : (
+          <SimpleSwapPanel />
+        )}
+      </div>
 
-          <div className="panel-container">
-            {!isConnected ? (
-              <div className="connect-prompt">
-                <p>Connect your wallet to stake, unstake, or swap $MOLT</p>
-                <ConnectButton />
-              </div>
-            ) : activeTab === 'dashboard' ? (
-              <DashboardPanel project={project} user={user} />
-            ) : activeTab === 'stake' ? (
-              <StakePanel project={project} user={user} />
-            ) : activeTab === 'swap' ? (
-              <SwapPanel project={project} user={user} />
-            ) : (
-              <GovernancePanel project={project} user={user} />
-            )}
-          </div>
-        </>
-      )}
-
-      <style>{`
-        .molt-app {
-          max-width: 480px;
-          margin: 0 auto;
-          padding: 1rem;
-          font-family: 'Space Mono', monospace;
-        }
-        
-        .header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-        
-        .logo {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        
-        .logo .lobster { font-size: 2rem; }
-        .logo h1 { 
-          font-size: 1.2rem; 
-          background: linear-gradient(135deg, #E85D26, #F5A623);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        
-        .tabs {
-          display: flex;
-          gap: 0.5rem;
-          margin-bottom: 1rem;
-        }
-        
-        .tabs button {
-          flex: 1;
-          padding: 0.75rem;
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
-          color: #888;
-          border-radius: 8px;
-          cursor: pointer;
-          font-family: inherit;
-          transition: all 0.2s;
-        }
-        
-        .tabs button.active {
-          background: rgba(232, 93, 38, 0.15);
-          border-color: #E85D26;
-          color: #E85D26;
-        }
-        
-        .panel-container {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 12px;
-          padding: 1.5rem;
-        }
-        
-        .connect-prompt {
-          text-align: center;
-          padding: 2rem;
-        }
-        
-        .connect-prompt p {
-          color: #888;
-          margin-bottom: 1rem;
-        }
-        
-        .loading, .error {
-          text-align: center;
-          padding: 3rem;
-          color: #888;
-        }
-      `}</style>
+      {/* Links */}
+      <div className="links">
+        <a href="https://dexscreener.com/bsc/0x8ECa9C65055b42f77fab74cF8265c831585AFB07" target="_blank" rel="noopener noreferrer">
+          📊 DexScreener
+        </a>
+        <a href="https://bscscan.com/token/0x8ECa9C65055b42f77fab74cF8265c831585AFB07" target="_blank" rel="noopener noreferrer">
+          🔍 BscScan
+        </a>
+        <a href="https://x.com/moltbotbnb" target="_blank" rel="noopener noreferrer">
+          𝕏 Twitter
+        </a>
+      </div>
     </div>
   )
 }
