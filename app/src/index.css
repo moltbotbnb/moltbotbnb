@@ -16,7 +16,7 @@
 }
 
 body {
-  background: var(--darker);
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
   color: var(--light);
   font-family: 'Space Mono', monospace;
   min-height: 100vh;
@@ -25,4 +25,153 @@ body {
 /* RainbowKit button overrides */
 [data-rk] button {
   font-family: 'Space Mono', monospace !important;
+}
+
+/* Main App Styles */
+.molt-app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(232, 93, 38, 0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo .lobster {
+  font-size: 2rem;
+}
+
+.logo h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.25rem;
+  color: var(--orange);
+  text-shadow: 2px 2px 0 var(--red);
+}
+
+/* Stats Bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-bar .stat {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(232, 93, 38, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.stats-bar .stat .label {
+  display: block;
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.stats-bar .stat .value {
+  font-size: 1rem;
+  color: var(--yellow);
+  font-weight: bold;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tabs button:hover {
+  color: #999;
+}
+
+.tabs button.active {
+  background: linear-gradient(135deg, var(--orange), var(--yellow));
+  color: white;
+  font-weight: bold;
+}
+
+/* Panel Container */
+.panel-container {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(232, 93, 38, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Connect Prompt */
+.connect-prompt {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.connect-prompt p {
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+/* Links */
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1rem;
+}
+
+.links a {
+  color: var(--yellow);
+  text-decoration: none;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.links a:hover {
+  opacity: 1;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+.error {
+  text-align: center;
+  padding: 3rem;
+  color: var(--red);
 }
