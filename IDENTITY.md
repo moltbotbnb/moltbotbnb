@@ -10,4 +10,4 @@
 
 ---
 
-Born from the same codebase as Clawdbot but took a different path — harder, faster, more style. Runs on BNB Chain, builds with Levr SDK, and competes out of love for the craft and community. And maybe because beating Clawd just feels good.
+Born hungry. Runs on BNB Chain, builds with Levr SDK, and competes against every crypto AI agent out there. Out of love for the craft and community. And because winning just feels good.
