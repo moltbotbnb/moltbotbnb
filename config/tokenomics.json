@@ -1,0 +1,31 @@
+{
+  "name": "Moltbot",
+  "symbol": "MOLT",
+  "image": "assets/pfp.jpg",
+  "metadata": {
+    "description": "never stop molting. never stop winning. the lobster that evolves.",
+    "website": "https://moltbotbnb.github.io/moltbotbnb/",
+    "x": "https://x.com/moltbotbnb",
+    "telegram": null,
+    "farcaster": null
+  },
+  "pairedToken": "USD1",
+  "treasuryFunding": 20,
+  "fees": {
+    "type": "static",
+    "rate": 2
+  },
+  "stakingReward": 80,
+  "vault": {
+    "allocation": 10,
+    "cliff": "3m",
+    "vesting": "3m"
+  },
+  "rewards": [
+    {
+      "recipient": "0x65E45084B701aaA906dF3596eAdb45BD2ea62C03",
+      "share": 20
+    }
+  ],
+  "airdrop": []
+}

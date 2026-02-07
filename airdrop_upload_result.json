@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "timestamp": "2026-01-30T20:19:47.162Z",
+  "tokenAddress": "0x8ECa9C65055b42f77fab74cF8265c831585AFB07",
+  "chainId": 56,
+  "merkleRoot": "0xbbd94c36fedb530a12147f32501e5860250c1e8945e5bbd40d92d58190811cf2",
+  "cid": "bafkreier4jbttxw3pgkaah3yeawr7fn5em6wldsljk7u3dwk4o4pdof2ja",
+  "lockupEndTime": 1769888302070,
+  "lockupDuration": 86400,
+  "recipientCount": 43
+}

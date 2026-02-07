@@ -1,0 +1,224 @@
+{
+  "success": true,
+  "timestamp": "2026-01-30T19:38:22.070Z",
+  "token": {
+    "address": "0x8ECa9C65055b42f77fab74cF8265c831585AFB07",
+    "name": "Moltbot",
+    "symbol": "MOLT",
+    "chain": "BSC",
+    "chainId": 56
+  },
+  "transaction": {
+    "hash": "0x8116ab59490a09fff2e6ee15fae56568793ba7b40278c2f048130a6fd1a81818",
+    "blockNumber": "78347810",
+    "gasUsed": "6182802"
+  },
+  "config": {
+    "name": "Moltbot",
+    "symbol": "MOLT",
+    "image": "https://moltbotbnb.github.io/moltbotbnb/assets/pfp.jpg",
+    "metadata": {
+      "description": "Autonomous AI agent on BNB Chain. The evolution is here. 🦞",
+      "xLink": "https://x.com/moltbotbnb",
+      "websiteLink": "https://moltbotbnb.github.io/moltbotbnb/",
+      "telegramLink": "https://t.me/moltbotbnb"
+    },
+    "pairedToken": "USD1",
+    "fees": {
+      "type": "static",
+      "feeTier": "2%"
+    },
+    "stakingReward": "80%",
+    "treasuryFunding": "20%",
+    "devBuy": "0.23",
+    "rewards": [
+      {
+        "admin": "0x65E45084B701aaA906dF3596eAdb45BD2ea62C03",
+        "recipient": "0x65E45084B701aaA906dF3596eAdb45BD2ea62C03",
+        "percentage": 20,
+        "token": "Both"
+      }
+    ],
+    "vault": {
+      "percentage": "10%",
+      "recipient": "0x65E45084B701aaA906dF3596eAdb45BD2ea62C03",
+      "lockupPeriod": "30 days",
+      "vestingPeriod": "30 days"
+    },
+    "airdrop": [
+      {
+        "account": "0x8A6A4691DaE1c37A9F4EF6fD98B4249c3b255860",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x23dd5e258bd15b120ac0db87e480769cebcb8c6b",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x09a6b7b62B16232C03c2a4E4aEE21cAE234547C7",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x397c1936145911F5B1E7dfaBb32D426Ff38C94A6",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x6C02C5FCF82d2951Af85C12e8469Ab6f16c58e32",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xce9dbff9bf5ff7150211c5ddaaca7defe2ccc104",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x716c15b5cee829728fc639028dd3f07a527b1a3d",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x8b7962413719955f3cf6b45f5b02e4de42ab1fe3",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x4f856fd886BA5aAEc539E9046d2104152b9936AB",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x26080aee84ea856d98d376764a2d0bd393c769f6",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x70661bd0Cd86045eB147470cD7464cF85A793a61",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x33d7eaca2D1a4b77C9CB2dd6e56587fA6e3747bd",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x15cF5690786Eaa455F870A582FC234f5029A19BB",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x119ff5bf67155d29411d8beb0afe09300f89a32b",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xc595bbb153b36f378f275ab08b9ee233212b54d8",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xaC8EbEb5F3a0187d49e85d304547609387512EB2",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xd55254553f873f2f6b615b28b2eb89103f6a5bde",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xcf2d9ae679ee925368a6aab54bba70fd35e1a83f",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x842A0F132E303210B72960f194605aD22f2336F2",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xaC71bc782fff0034675E08130f3b9cC9e605d022",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x4110be16071686ab15d22f72c81b0dc4fb8dd15c",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x9d2CA1095a3068e58b9048869B052b78D4698e7A",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xD7E7fd33497A6d6312488874C6E5FD8CeC18DdcA",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x366C509De90399CEf0D62f17aE238E14DE7422ef",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x357b184ee545fe02858027dfec9dd9e097a435d8",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xa0a419940bca36dff0af5d75d2fd6c401640fb99",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x6c1452d04a05f2280521ccf52ea90b6dc32525df",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x5814b331922f2055f959747203041cec960d238b",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xCbFECd95458b950aC92e4Dd6E18CBd6e711DF0f5",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x1F4ac228555D21BEfD6bF0f21111d13092A2BC7d",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x24CdD1615c5b40A5692f94dBA40eC653b3309727",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x15aaa0bcc49bf440cb07f0c74e78f87e55a85b80",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x157436fb12d39091de727c8462ae3e9326718233",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xEE11D85440a16ca3CDbd9e6b30Ba89822231B225",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xfa435F118509011A49BEd60F939AB6f2280af618",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x40A86D04f51f1a63bf0559874C5C034E4DD9cD4F",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xC20031b1766910E5DB77500f4975a61aEfdDBAd6",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x47C0658A5651c1d59FC2979C143944B4C43A655a",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x84458f60cc37387b6c7adb4977df1fb285d69182",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x4772c0E357bB4a78399dc58F651b7649BA6A503d",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0x8BBb25A60d0Af4d168c3f365DEC206afe3cF04b0",
+        "percentage": 0.0233
+      },
+      {
+        "account": "0xc80b3a05a0eabe213943a52eaa41077579dd5e23",
+        "percentage": 0.0233
+      }
+    ]
+  },
+  "links": {
+    "bscscan": "https://bscscan.com/token/0x8ECa9C65055b42f77fab74cF8265c831585AFB07",
+    "pancakeswap": "https://pancakeswap.finance/swap?outputCurrency=0x8ECa9C65055b42f77fab74cF8265c831585AFB07",
+    "tx": "https://bscscan.com/tx/0x8116ab59490a09fff2e6ee15fae56568793ba7b40278c2f048130a6fd1a81818"
+  }
+}
