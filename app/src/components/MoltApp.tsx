@@ -172,8 +172,8 @@ export function MoltApp() {
 
       {/* Links */}
       <div className="links">
-        <a href="https://dexscreener.com/bsc/0x8ECa9C65055b42f77fab74cF8265c831585AFB07" target="_blank" rel="noopener noreferrer">
-          📊 DexScreener
+        <a href="https://www.geckoterminal.com/bsc/pools/0x35f7bd6fa8d88588309cd36d0769d9d4666553e52c66e9b47f83f93aac1c9d6f" target="_blank" rel="noopener noreferrer">
+          📊 GeckoTerminal
         </a>
         <a href="https://bscscan.com/token/0x8ECa9C65055b42f77fab74cF8265c831585AFB07" target="_blank" rel="noopener noreferrer">
           🔍 BscScan
